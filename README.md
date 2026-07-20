@@ -28,7 +28,7 @@ A web-based bioinformatics application designed to evaluate guide RNA (gRNA) cut
 ### 1. Efficiency Score Formula
 GC content is evaluated for an optimal range (40% - 60%) alongside sequence-specific penalties:
 
-$$\text{Efficiency} = \max\left(0, 100 - \left|50 - \text{GC}\%\right| \times 2.5\right) - \text{PolyT\_Penalty}$$
+$$\text{Efficiency} = \max(0, 100 - |50 - \text{GC}| \times 2.5) - \text{PolyT\_Penalty}$$
 
 ### 2. MIT Hsu-Zhang Off-Target Model
 Cleavage probability across mismatch positions relative to the PAM site is computed via:
