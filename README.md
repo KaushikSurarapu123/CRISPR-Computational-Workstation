@@ -34,8 +34,8 @@ Off-target cleavage is one of the primary safety risks in CRISPR-Cas9 genome edi
 ## Quick Start
 
 1. Clone the repository:
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/KaushikSurarapu123/CRISPR-Computational-Workstation.git
+cd CRISPR-Computational-Workstation
 
 2. Install dependencies:
 pip install streamlit pandas plotly
