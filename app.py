@@ -74,7 +74,7 @@ def fetch_live_chromosome(ncbi_accession: str) -> str:
         return "".join(clean_lines).upper()
     except Exception as e:
         st.warning(
-            f"Failed to fetch live NCBI data ({e}). Using human mtDNA fallback sequence."
+            f"Failed to fetch live NCBI data for '{ncbi_accession}' ({e}). Using human mtDNA fallback sequence."
         )
         return (
             "GATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCATTTGGTATTTTCGTCTGGGG"
@@ -89,8 +89,8 @@ class CRISPRChromosomeAlignmentEngine:
     position-weighted matrix model to evaluate authentic chromosomal safety.
     """
 
-    def __init__(self):
-        self.ncbi_accession = "NC_012920.1"
+    def __init__(self, ncbi_accession: str = "NC_012920.1"):
+        self.ncbi_accession = ncbi_accession
         self.chromosome_sequence = fetch_live_chromosome(self.ncbi_accession)
 
         # Official MIT Hsu-Zhang Mismatch Weight Matrix (Positions 1 to 20 relative to PAM)
@@ -241,17 +241,22 @@ class CRISPRChromosomeAlignmentEngine:
         )
 
 
-# Clear resource cache to prevent method parameter mismatch issues during updates
-st.cache_resource.clear()
-
 @st.cache_resource
-def get_analyzer_engine():
-    return CRISPRChromosomeAlignmentEngine()
+def get_analyzer_engine(ncbi_accession: str):
+    return CRISPRChromosomeAlignmentEngine(ncbi_accession)
 
 
 # --- INTERACTION TERMINAL CONTROL LAYER ---
 with st.sidebar:
     st.title("Settings")
+    
+    ncbi_accession_input = st.text_input(
+        "NCBI Accession ID:",
+        value="NC_012920.1",
+        help="Enter any NCBI Nucleotide Accession (e.g., NC_012920.1 for Human mtDNA)."
+    )
+    
+    st.divider()
     input_method = st.radio(
         "Genomic Data Source Type:",
         ["Manual Text Entry", "Upload FASTA File"],
@@ -266,9 +271,9 @@ with st.sidebar:
     st.caption(f"Profile: {NUCLEASE_PROFILES[selected_nuclease]['desc']}")
     st.divider()
     st.caption("Workstation v5.3.0")
-    st.caption("Target: Human Chromosome M (NC_012920.1)")
+    st.caption(f"Target Accession: {ncbi_accession_input}")
 
-analyzer = get_analyzer_engine()
+analyzer = get_analyzer_engine(ncbi_accession_input)
 
 # --- MAIN DASHBOARD VIEW ---
 st.title("CRISPR Target & Alignment Workstation")
@@ -398,7 +403,7 @@ with tab1:
                 },
             )
 
-        # --- CHROMOSOMAL LOCUS TRACK MAP (NUMERIC BP AXIS FIX) ---
+        # --- CHROMOSOMAL LOCUS TRACK MAP ---
         st.subheader("3. Chromosomal Locus Map")
         st.caption("Visual position of target gRNA loci along the query DNA strand.")
         
@@ -472,7 +477,7 @@ with tab2:
     with col_limits:
         st.markdown("#### Model Scope & Limitations")
         st.info(
-            "• **Target Reference:** Configured for Human Mitochondrion (NC_012920.1).\n"
+            "• **Target Reference:** Configurable via NCBI Nucleotide Accession ID.\n"
             "• **PAM Specificity:** Evaluates SpCas9 variants and Cas12a target motifs.\n"
             "• **Future Roadmap:** Multi-threaded full nuclear scans and deep-learning integration (DeepHF, Azimuth)."
         )
@@ -492,8 +497,7 @@ with tab2:
 with tab3:
     st.subheader("Reference Genome Overview")
     st.write(
-        f"**NCBI Accession:** `{analyzer.ncbi_accession}` (Homo sapiens"
-        " mitochondrion)"
+        f"**NCBI Accession:** `{analyzer.ncbi_accession}`"
     )
     st.write(
         f"**Sequence Length:** {len(analyzer.chromosome_sequence):,} base pairs"
