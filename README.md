@@ -47,11 +47,11 @@ $$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \l
 ### Installation
 
 1. **Clone the repository:**
-   git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
    cd YOUR_REPO_NAME
 
 2. **Install dependencies:**
-   pip install streamlit pandas plotly
+   pip install -r requirements.txt
 
 3. **Launch the workstation:**
    streamlit run app.py
