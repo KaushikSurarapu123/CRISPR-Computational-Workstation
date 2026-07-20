@@ -47,13 +47,17 @@ $$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \l
 ### Installation
 
 1. **Clone the repository:**
+   
    git clone https://github.com/KaushikSurarapu123/CRISPR-Computational-Workstation.git
+   
    cd CRISPR-Computational-Workstation
 
 2. **Install dependencies:**
+   
    pip install -r requirements.txt
 
 3. **Launch the workstation:**
+   
    streamlit run app.py
 
 ---
