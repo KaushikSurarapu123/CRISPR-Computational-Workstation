@@ -6,9 +6,9 @@ A web-based bioinformatics application designed to evaluate guide RNA (gRNA) cut
 
 ## Interface Preview
 
-| **Main Dashboard & Analytics** | **Target Locus Map** | **Sidebar Configurations** |
+| **Full Workspace & Controls** | **Analytics & Target Rankings** | **Chromosomal Locus Map** |
 | :---: | :---: | :---: |
-| ![Dashboard Screenshot](images/dashboard.png) | ![Locus Map Screenshot](images/locus_map.png) | ![Sidebar Screenshot](images/sidebar.png) 
+| ![Sidebar Screenshot](images/sidebar.png) | ![Dashboard Screenshot](images/dashboard.png) | ![Locus Map Screenshot](images/locus_map.png) |
 
 ---
 
@@ -26,13 +26,16 @@ A web-based bioinformatics application designed to evaluate guide RNA (gRNA) cut
 ## Biological & Mathematical Frameworks
 
 ### 1. Efficiency Score Formula
-GC content is evaluated for an optimal range ($40\% - 60\%$) alongside sequence-specific penalties:
-$$\text{Efficiency} = \max\left(0, 100 - \vert{}50 - \text{GC}\%\vert{} \times 2.5\right) - \text{PolyT\_Penalty}$$
+GC content is evaluated for an optimal range (40% - 60%) alongside sequence-specific penalties:
+
+$$\text{Efficiency} = \max\left(0, 100 - \left|50 - \text{GC}\%\right| \times 2.5\right) - \text{PolyT\_Penalty}$$
 
 ### 2. MIT Hsu-Zhang Off-Target Model
 Cleavage probability across mismatch positions relative to the PAM site is computed via:
-$$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \left(\frac{1}{\frac{19 - d_{avg}}{19} \times 4 + 1}\right) \times \left(\frac{1}{n^2}\right)$$
-*Where $w_p$ represents position-specific weights, $d_{avg}$ is the average distance between mismatches, and $n$ is the total mismatch count.*
+
+$$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \left(\frac{1}{\frac{19 - d_{\text{avg}}}{19} \times 4 + 1}\right) \times \left(\frac{1}{n^2}\right)$$
+
+*Where $w_p$ represents position-specific weights, $d_{\text{avg}}$ is the average distance between mismatches, and $n$ is the total mismatch count.*
 
 ---
 
@@ -44,25 +47,24 @@ $$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \l
 ### Installation
 
 1. **Clone the repository:**
-   ```bash
    git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
    cd YOUR_REPO_NAME
 
-2. Install dependencies:
-pip install streamlit pandas plotly
+2. **Install dependencies:**
+   pip install streamlit pandas plotly
 
-3. Launch the workstation:
-streamlit run app.py
+3. **Launch the workstation:**
+   streamlit run app.py
 
 ---
 
 ## Citations
 
-Hsu, P., Scott, D., Weinstein, J. et al. DNA targeting specificity of RNA-guided Cas9 nucleases. Nature Biotechnology 31, 827–832 (2013).
+- **Hsu, P., Scott, D., Weinstein, J. et al.** *DNA targeting specificity of RNA-guided Cas9 nucleases.* Nature Biotechnology **31**, 827–832 (2013).
+- **NCBI Entrez API:** National Center for Biotechnology Information (NCBI) Data API.
 
-NCBI Entrez API: National Center for Biotechnology Information (NCBI) Data API.
 ---
 
 ## License
 
-Distributed under the MIT License. See LICENSE for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
