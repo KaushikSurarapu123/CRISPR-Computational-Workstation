@@ -28,14 +28,14 @@ A web-based bioinformatics application designed to evaluate guide RNA (gRNA) cut
 ### 1. Efficiency Score Formula
 GC content is evaluated for an optimal range (40% - 60%) alongside sequence-specific penalties:
 
-$$\text{Efficiency} = \max(0, 100 - |50 - \text{GC}| \times 2.5) - \text{PolyT\_Penalty}$$
+$$\text{Efficiency} = \max(0, 100 - |50 - \text{GC}| \times 2.5) - \text{PolyT Penalty}$$
 
 ### 2. MIT Hsu-Zhang Off-Target Model
 Cleavage probability across mismatch positions relative to the PAM site is computed via:
 
-$$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \left(\frac{1}{\frac{19 - d_{\text{avg}}}{19} \times 4 + 1}\right) \times \left(\frac{1}{n^2}\right)$$
+$$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \left(\frac{1}{\frac{19 - d}{19} \times 4 + 1}\right) \times \left(\frac{1}{n^2}\right)$$
 
-*Where $w_p$ represents position-specific weights, $d_{\text{avg}}$ is the average distance between mismatches, and $n$ is the total mismatch count.*
+*Where $w_p$ represents position-specific weights, $d$ is the average distance between mismatches, and $n$ is the total mismatch count.*
 
 ---
 
@@ -47,8 +47,8 @@ $$\text{Cleavage Probability} = \left(\prod_{p \in M} (1 - w_p)\right) \times \l
 ### Installation
 
 1. **Clone the repository:**
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-   cd YOUR_REPO_NAME
+   git clone https://github.com/KaushikSurarapu123/CRISPR-Computational-Workstation.git
+   cd CRISPR-Computational-Workstation
 
 2. **Install dependencies:**
    pip install -r requirements.txt
